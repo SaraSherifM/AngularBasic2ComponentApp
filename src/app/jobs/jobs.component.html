@@ -1,0 +1,29 @@
+<br>
+
+
+
+
+<h2>Browse Jobs Now</h2>
+<br>
+<br>
+
+<div class="row">
+    <div class="col-lg-8">  
+        <div class="card" *ngFor="let job of jobs; index as i">
+           
+            <div class="card-body">
+              <h5 class="card-title">{{ job.title}}</h5>
+              <p class="card-text">{{ job.description}}</p>
+              <h6>{{job.requirments }}</h6>
+
+              <button *ngIf="!job.isClicked"  (click)="apply(i)" class="btn btn-success">Apply now</button>
+
+              <button *ngIf="job.isClicked" (click)="apply(i)" class="btn btn-dark">Applied</button>
+
+            </div>
+            <div class="card-footer text-muted">
+                {{job.counter}}  applied for this job
+              </div>
+          </div>
+    </div>
+</div>
