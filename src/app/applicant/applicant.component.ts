@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl,FormGroup ,Validators} from '@angular/forms';
+import { FormControl,FormGroup ,Validators, FormBuilder, FormArray} from '@angular/forms';
 
 @Component({
   selector: 'app-applicant',
@@ -8,43 +8,59 @@ import { FormControl,FormGroup ,Validators} from '@angular/forms';
 })
 export class ApplicantComponent implements OnInit {
 
-  constructor() { }
-  flag = false;
+  constructor(private fb: FormBuilder) { }
+
   applicant:any;
-  applicantData:FormGroup;
+  applicantData;
 
-  lang = 1;
-  languages:string[] = ['Arabic','English', 'French','German'];
 
-  levels:string[] = ['Native','Fluent','Very Good','Good'];
-
+  levelArray:string[] = ['Native','Fluent','Very Good','Good'];
+  formgroup;
   ngOnInit(): void { 
 
-    this.applicantData = new FormGroup({
+    this.applicantData = this.fb.group({
 
-      name: new FormControl('', [ Validators.required ]),
+      name: ['', Validators.required],
 
-      email: new FormControl('', [ Validators.required ]),
+      email: ['', Validators.required ],
 
-      Language1: new FormControl(''),
-      Level1: new FormControl(''),
-      Language2: new FormControl(''),
-      Level2: new FormControl(''),
+      languages: this.fb.array([
+        this.addLanguageAndLevelFormGroup()
+      ]),
 
-    
-  });
-
-
-
-   }
-
-   add(){
-     this.flag = true;
-    
-      
      
+  });  }
+
+  
+  addLanguageClick():void{
+    //get returns abstract control and not form Array type cast to Formarray
+    
+    (<FormArray>this.applicantData.get('languages')).push(this.addLanguageAndLevelFormGroup());
+
+    console.log(this.languages.controls);
+    console.log(this.applicantData.controls.languages.controls.formgroup)
+    //console.log(`form Array .controls access first element+ ${this.languages.controls['1']} `);
+
+
+  }
+
+  get languages(){
+    return this.applicantData.get('languages') as FormArray
+  }
+
+
+   addLanguageAndLevelFormGroup( ):FormGroup {
+     return  this.fb.group({
+       language: [''],
+       level: ['']
+     });
+      
    }
+   
+   counter:number ;
+
    onSubmit(){
+
     if(this.applicantData.valid)
     {
       this.applicant =this.applicantData.value;
@@ -52,6 +68,7 @@ export class ApplicantComponent implements OnInit {
       this.applicantData.reset(); 
       
     }
+    this.counter = 0;
 
    }
 

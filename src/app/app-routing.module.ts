@@ -8,7 +8,7 @@ import { JobsComponent } from './jobs/jobs.component';
 const routes: Routes = [
 
   {path: 'applicant', component:ApplicantComponent},
-  {path: 'jobs', component:JobsComponent}
+   {path: '', component:JobsComponent}
 
 ];
 

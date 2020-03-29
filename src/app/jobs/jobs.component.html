@@ -1,7 +1,8 @@
 <br>
-
-
-
+<br>
+<br>
+<br>
+<br>
 
 <h2>Browse Jobs Now</h2>
 <br>
@@ -16,9 +17,9 @@
               <p class="card-text">{{ job.description}}</p>
               <h6>{{job.requirments }}</h6>
 
-              <button *ngIf="!job.isClicked"  (click)="apply(i)" class="btn btn-success">Apply now</button>
+              <button *ngIf="!job.isClicked"  (click)="click(i)" class="btn btn-success">Apply now</button>
 
-              <button *ngIf="job.isClicked" (click)="apply(i)" class="btn btn-dark">Applied</button>
+              <button *ngIf="job.isClicked" (click)="click(i)" class="btn btn-dark">Applied</button>
 
             </div>
             <div class="card-footer text-muted">
