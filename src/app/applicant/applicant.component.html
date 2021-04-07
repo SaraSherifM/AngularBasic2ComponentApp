@@ -1,83 +1,110 @@
-<br>
-<br>
-<br>
-<br>
-
-<form name="applicantData" [formGroup]="applicantData" (ngSubmit)="onSubmit()">
-
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+  <form
+    name="applicantData"
+    [formGroup]="applicantData"
+    (ngSubmit)="onSubmit($event)"
+  >
     <div class="row">
-
-        <div class="col-md-5">
-            <div>
-                <input class="single-field" type="text" placeholder="Full Name" formControlName="name">
-                <small *ngIf="applicantData.get('name').hasError('required') && applicantData.get('name').touched "
-                    id="passwordHelp" class="text-danger">
-                    Name is required
-                </small>
-
-            </div>
-
-
-            <div>
-                <input type="email" class="single-field" placeholder="Email" formControlName="email"
-                    pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
-
-                <small *ngIf="applicantData.get('email').hasError('required') && applicantData.get('email').touched"
-                    class="text-danger">
-                    Email is required
-                </small>
-
-                <small *ngIf="applicantData.get('email').hasError('pattern') && applicantData.get('email').touched "
-                    class="text-danger">
-                    Please Enter Valid Email Address
-                </small>
-
-
-            </div>
-
-
-
-
-
-            <div>
-                <h5>Enter Language</h5>
-                <button class="btn btn-info" (click)="addLanguageClick()">Add Language</button>
-
-                <div>
-
-                    <div formArrayName="languages" *ngFor="let l of languages.controls; let i = index; ">
-
-                        <div [formGroupName]="i">
-
-                            <input class="single-field" type="text" placeholder="Enter Language" id=""
-                                formControlName="language">
-
-                            <select class="nice-select" formControlName="level">
-                                <option class="nice-select" value="">Choose your Level </option>
-
-                                <option name="level" *ngFor="let level  of levelArray " [value]="level"
-                                    value="trending"> {{level}} </option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-                    <button type="submit" class="submit-btn">Save</button>
-
-                </div>
-
-
-
-            </div>
-
+      <div class="col-md-5">
+        <div>
+          <input
+            class="single-field"
+            type="text"
+            placeholder="Full Name"
+            formControlName="name"
+          />
+          <small
+            *ngIf="
+              applicantData.get('name').hasError('required') &&
+              applicantData.get('name').touched
+            "
+            id="passwordHelp"
+            class="text-danger"
+          >
+            Name is required
+          </small>
         </div>
 
+        <div>
+          <input
+            type="email"
+            class="single-field"
+            placeholder="Email"
+            formControlName="email"
+            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+          />
 
+          <small
+            *ngIf="
+              applicantData.get('email').hasError('required') &&
+              applicantData.get('email').touched
+            "
+            class="text-danger"
+          >
+            Email is required
+          </small>
 
+          <small
+            *ngIf="
+              applicantData.get('email').hasError('pattern') &&
+              applicantData.get('email').touched
+            "
+            class="text-danger"
+          >
+            Please Enter Valid Email Address
+          </small>
+        </div>
 
+        <div>
+          <h5>Enter Language</h5>
+          <button class="btn btn-info" (click)="addLanguageClick($event)">
+            Add Language
+          </button>
 
+          <div>
+            <div
+              formArrayName="languages"
+              *ngFor="let lang of languages.controls; let i = index"
+            >
+              <div [formGroupName]="i">
+                <input
+                  class="single-field"
+                  type="text"
+                  placeholder="Enter Language"
+                  attr.for="{{ 'language' + i }}"
+                  id="{{ 'language' + i }}"
+                  formControlName="language"
+                />
+
+                <select
+                  class="nice-select"
+                  formControlName="level"
+                  id="{{ 'level' + i }}"
+                >
+                  <option class="nice-select" attr.for="    {{ 'level' + i }}">
+                    Choose your Level
+                  </option>
+
+                  <option
+                    name="level"
+                    *ngFor="let level of levelArray"
+                    [value]="level"
+                    value="trending"
+                  >
+                    {{ level }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Save</button>
+          </div>
+        </div>
+      </div>
     </div>
-
-</form>
+  </form>
+</div>
